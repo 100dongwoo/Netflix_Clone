@@ -13,6 +13,10 @@ react-navigation을 통해 여러 페이지가 만들어져있는 템플릿. <br
 ### 공부내용
 - expo  { Edit : userInterfaceStyle:"dark" ( background 색상 바뀜 )     'app.json()' }
 - FlatList 속성 horizontal row로 flex 바뀜
+- 타입스크립트 Props  
+![CommentStructure](./StudyImage/ts_Props.png)
+- 
+
 
 [comment]: <> (https://www.youtube.com/watch?v=CNaLOa-6X7U&t=641s)
 
