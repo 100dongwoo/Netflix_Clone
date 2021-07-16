@@ -12,7 +12,7 @@ import useColorScheme from '../hooks/useColorScheme';
 import HomeScreen from '../screens/HomeScreen/index';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { BottomTabParamList, HomeParamList, TabTwoParamList } from '../types';
-
+import MovieDetailScreen from '../screens/MovieDetailScreen';
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
@@ -74,6 +74,13 @@ const HomeStack = createStackNavigator<HomeParamList>();
 function TabOneNavigator() {
     return (
         <HomeStack.Navigator>
+            <HomeStack.Screen
+                name="MovieDetailScreen"
+                component={MovieDetailScreen}
+                options={{
+                    headerTitle: '',
+                }}
+            />
             <HomeStack.Screen
                 name="HomeScreen"
                 component={HomeScreen}
