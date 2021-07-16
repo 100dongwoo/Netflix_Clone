@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { FlatList, Image, StyleSheet } from 'react-native';
+import { FlatList, Image, Pressable, StyleSheet } from 'react-native';
 import { Text, View } from '../Themed';
 import styles from './styles';
 import categories from '../../assets/data/categories';
+import { useNavigation } from '@react-navigation/native';
 
 interface HomeCategoryProps {
     category: {
@@ -13,19 +14,25 @@ interface HomeCategoryProps {
 }
 
 const HomeCategory = (props: HomeCategoryProps) => {
+    const navigation = useNavigation();
     const { category } = props;
+    const onMoviePress = (movie) => {
+        navigation.navigate('MovieDetailScreen', { id: movie.id });
+    };
     return (
         <>
             <Text style={styles.title}>{category.title}</Text>
             <FlatList
                 data={category.movies}
                 renderItem={({ item }) => (
-                    <Image
-                        source={{
-                            uri: item.poster,
-                        }}
-                        style={styles.image}
-                    />
+                    <Pressable onPress={() => onMoviePress(item)}>
+                        <Image
+                            source={{
+                                uri: item.poster,
+                            }}
+                            style={styles.image}
+                        />
+                    </Pressable>
                 )}
                 horizontal
                 showsHorizontalScrollIndicator={false}
