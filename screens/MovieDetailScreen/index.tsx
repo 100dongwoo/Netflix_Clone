@@ -4,6 +4,7 @@ import { Text, View } from '../../components/Themed';
 import styles from './styles';
 import movie from '../../assets/data/movie';
 import categories from '../../assets/data/categories';
+// @ts-ignore
 import { Picker } from '@react-native-picker/picker';
 
 import {
@@ -14,22 +15,24 @@ import {
     MaterialIcons,
 } from '@expo/vector-icons';
 import EpisodeItem from '../../components/EpisodeItem';
+import VideoPlayer from '../../components/VideoPlayer';
+
 const firstSeason = movie.seasons.items[0];
 const firstEpisode = firstSeason.episodes.items[0];
 const MovieDetailScreen = () => {
     const seasonNames = movie.seasons.items.map((season) => season.name);
     const [currentSeason, setCurrentSeason] = useState(firstSeason);
+    const [currentEpisode, setCurrentEpisode] = useState(
+        firstSeason.episodes.items[0]
+    );
     return (
         <View>
-            <Image source={{ uri: firstEpisode.poster }} style={styles.image} />
-            {/*/!**!/*/}
-            {/*<EpisodeItem episode={firstEpisode} />*/}
-
-            {/*/!**!/*/}
-
+            <VideoPlayer episode={currentEpisode} />
             <FlatList
                 data={currentSeason.episodes.items}
-                renderItem={({ item }) => <EpisodeItem episode={item} />}
+                renderItem={({ item }) => (
+                    <EpisodeItem episode={item} onPress={setCurrentEpisode} />
+                )}
                 style={{ marginBottom: 250 }}
                 ListHeaderComponent={
                     <View style={{ padding: 12 }}>
@@ -136,7 +139,10 @@ const MovieDetailScreen = () => {
                             </View>
                             <Picker
                                 selectedValue={currentSeason.name}
-                                onValueChange={(itemValue, itemIndex) => {
+                                onValueChange={(
+                                    itemValue: any,
+                                    itemIndex: string | number
+                                ) => {
                                     setCurrentSeason(
                                         movie.seasons.items[itemIndex]
                                     );
@@ -144,8 +150,9 @@ const MovieDetailScreen = () => {
                                 mode="dropdown"
                                 style={{
                                     color: 'black',
-                                    width: 100,
-                                    height: 190,
+                                    width: 130,
+
+                                    // height: 190,
                                     backgroundColor: 'white',
                                 }}
                                 dropdownIconColor="white"
